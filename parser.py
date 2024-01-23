@@ -12,26 +12,25 @@ import struct
 import sys
 import time
 
-NAMES = { # not used for anything, but just documents a short blurb
-          # about what these things mean
+NAMES = {
     "vmhd": "video information media header",
     "mvhd": 'movie header',
     "tkhd": 'track header',
-    "mdhd": 'media header', # The media header atom specifies the characteristics of a media, including time scale and duration
+    "mdhd": 'media header',
     "smhd": 'sound media information header', 
-    "hdlr": 'handler reference', # The handler reference atom specifies the media handler component that is to be used to interpret the media’s data
+    "hdlr": 'handler reference',
 
-    "stsd": "sample description", # The sample description atom contains a table of sample descriptions
-    "stts": "time-to-sample", # Time-to-sample atoms store duration information for a media’s samples, providing a mapping from a time in a media to the corresponding data sample
-    "stsc": "sample-to-chunk", # The sample-to-chunk atom contains a table that maps samples to chunks
-    "stco": 'chunk offset', # Chunk offset atoms identify the location of each chunk of data
-    "stsz": 'sample size', # You use sample size atoms to specify the size of each sample
-    "ctts": 'composition offset', # The composition offset atom contains a sample-by-sample mapping of the decode-to-presentation time
-    "stss": "sync sample", # The sync sample atom identifies the key frames
+    "stsd": "sample description", 
+    "stts": "time-to-sample", 
+    "stsc": "sample-to-chunk", 
+    "stco": 'chunk offset', 
+    "stsz": 'sample size', 
+    "ctts": 'composition offset', 
+    "stss": "sync sample", 
 }
 
 CONTAINER_ATOMS = ["moov", "trak", "mdia", "minf","dinf","stbl"]
-_IGNORE_ATOMS = ["iods"] # couldn't find documentation for this
+_IGNORE_ATOMS = ["iods"] 
 _ATOMS = {
     "pnot": (12, "I2x4s2x",
              ("Modification time", "Atom type"),
@@ -57,9 +56,9 @@ _ATOMS = {
     "tkhd": (84, "4x2I72x",
              ("Creation time", "Modification time"),
              (4, 8)),
-    "mdhd": (24, "B3x4I2H", #3x is "flags"
+    "mdhd": (24, "B3x4I2H", 
              ("Version", "Creation time", "Modification time","Time Scale","Duration","Language","Quality"),
-             (4, 8)), # positions where dates are so we can modify them
+             (4, 8)), 
     "smhd": (8, "4xH2x",
              ("balance",),
              ())
@@ -159,7 +158,6 @@ class Mov(object):
             else:
                 print('unhandled thingie',al,an)
                 if al == 1:
-                    # 64 bit!
                     print("64 bit header!")
                     al = struct.unpack(">Q", self._f_read(8))[0]
                     self._f_read(al-16)
@@ -257,7 +255,7 @@ if __name__ == "__main__":
     
     (options, args) = parser.parse_args()
     if len(args) < 1:
-        parser.error("incorrect number of arguments")
+        parser.error("Number of arguments are incrorrects.")
         
     m = Mov(args[0])
     m.parse()

@@ -6,7 +6,15 @@ Parse metadata from quicktime `.mov` files.
 
 You can install this tool as a package:
 
-`git clone https://github.com/enzosln/Quicktime-Metadata-Parser-Python`
+```
+git clone https://github.com/enzosln/Quicktime-Metadata-Parser-Python
+```
+
+And import the script `parser.py` where you want to use him.
+The class Mov have to receive the path of your mov file.
+Documentation is not already available :(
+
+
 
 ### How to use
 
